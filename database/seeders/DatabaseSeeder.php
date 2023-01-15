@@ -17,9 +17,13 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         Storage::disk('public')->deleteDirectory('categories');
+        Storage::disk('public')->deleteDirectory('subcategories');
+
         Storage::disk('public')->makeDirectory('categories');
+        Storage::disk('public')->makeDirectory('subcategories');
 
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
+        $this->call(SubcategorySeeder::class);
     }
 }
