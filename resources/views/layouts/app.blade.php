@@ -23,6 +23,10 @@
 
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation')
+
+            <main>
+                {{ $slot }}
+            </main>
         </div>
 
         @stack('modals')
