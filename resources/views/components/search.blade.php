@@ -10,7 +10,7 @@
             break;
         default:
             $col = "#374151";
-        break;
+            break;
     }
 @endphp
 
