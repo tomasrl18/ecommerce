@@ -965,6 +965,12 @@ select{
 		padding-right: 2rem;
 	}
 }
+#navigation-menu{
+        height: calc(100vh - 4rem);
+    }
+.navigation-link:hover .navigation-submenu{
+        display: block !important;
+    }
 .fixed{
 	position: fixed;
 }
@@ -1081,11 +1087,11 @@ select{
 .mb-4{
 	margin-bottom: 1rem;
 }
-.mb-3{
-	margin-bottom: 0.75rem;
-}
 .-mt-px{
 	margin-top: -1px;
+}
+.mb-3{
+	margin-bottom: 0.75rem;
 }
 .block{
 	display: block;
@@ -1454,10 +1460,6 @@ select{
 .bg-trueGray-700{
 	--tw-bg-opacity: 1;
 	background-color: rgba(64, 64, 64, var(--tw-bg-opacity));
-}
-.bg-red-500{
-	--tw-bg-opacity: 1;
-	background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
 }
 .bg-orange-500{
 	--tw-bg-opacity: 1;

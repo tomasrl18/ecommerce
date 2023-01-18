@@ -12,7 +12,8 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+{{--        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">--}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
         @livewireStyles
 
@@ -33,5 +34,26 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script>
+            function dropdown(){
+                return {
+                    open: false,
+                    show(){
+                        if(this.open){
+                            this.open = false;
+                            document.getElementsByTagName('html')[0].style.overflow = 'auto'
+                        }else{
+                            this.open = true;
+                            document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+                        }
+                    },
+                    close(){
+                        this.open = false;
+                        document.getElementsByTagName('html')[0].style.overflow = 'auto'
+                    }
+                }
+            }
+        </script>
     </body>
 </html>
