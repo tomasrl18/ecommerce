@@ -1468,6 +1468,9 @@ select{
 .bg-opacity-25{
 	--tw-bg-opacity: 0.25;
 }
+.bg-opacity-100{
+	--tw-bg-opacity: 1;
+}
 .bg-cover{
 	background-size: cover;
 }
@@ -1716,6 +1719,10 @@ select{
 	--tw-text-opacity: 1;
 	color: rgba(16, 185, 129, var(--tw-text-opacity));
 }
+.text-orange-500{
+	--tw-text-opacity: 1;
+	color: rgba(249, 115, 22, var(--tw-text-opacity));
+}
 .text-trueGray-500{
 	--tw-text-opacity: 1;
 	color: rgba(115, 115, 115, var(--tw-text-opacity));
@@ -1727,10 +1734,6 @@ select{
 .text-gray-300{
 	--tw-text-opacity: 1;
 	color: rgba(209, 213, 219, var(--tw-text-opacity));
-}
-.text-orange-500{
-	--tw-text-opacity: 1;
-	color: rgba(249, 115, 22, var(--tw-text-opacity));
 }
 .text-red-100{
 	--tw-text-opacity: 1;
