@@ -13,11 +13,11 @@
 
     @push('scripts')
         <script>
-            Livewire.on('glider', function (id){
+            Livewire.on('glider', function (id) {
                 new Glider(document.querySelector('.glider-' + id), {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    draggable: false,
+                    draggable: true,
                     dots: '.glider-' + id + '~.dots',
                     arrows: {
                         prev: '.glider-' + id + '~.glider-prev',
