@@ -145,7 +145,8 @@
                    onclick="event.preventDefault();
                    document.getElementById('logout-form').submit()"
                    class="py-2 px-4 text-sm flex items-center text-trueGray-500 hover:bg-orange-500 hover:text-white">
-                   <span class="flex justify-center w-9">
+
+                    <span class="flex justify-center w-9">
                         <i class="fas fa-sign-out-alt"></i>
                     </span>
 
