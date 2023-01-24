@@ -4,10 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class AddCartItemsSize extends Component
+class AddCartItemSize extends Component
 {
     public function render()
     {
-        return view('livewire.add-cart-items-size');
+        return view('livewire.add-cart-item-size');
     }
 }
