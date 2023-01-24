@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\{CategoryController, ProductsController, WelcomeController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class);
@@ -12,3 +11,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('categories/{category}', [CategoryController::class, 'show'])
     ->name('categories.show');
+
+Route::get('products/{product}', [ProductsController::class, 'show'])
+    ->name('products.show');

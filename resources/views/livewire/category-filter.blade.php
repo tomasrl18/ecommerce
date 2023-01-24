@@ -18,8 +18,7 @@
                 @foreach($category->subcategories as $subcategory)
                     <li class="py-2 text-sm ">
                         <a class="cursor-pointer hover:text-orange-500 capitalize {{ $subcategoria == $subcategory->name ? 'text-orange-500 fontsemibold' : '' }}"
-                           wire:click="$set('subcategoria', '{{ $subcategory->name }}')"
-                           href="">
+                           wire:click="$set('subcategoria', '{{ $subcategory->name }}')">
                             {{ $subcategory->name }}
                         </a>
                     </li>
@@ -32,8 +31,7 @@
                 @foreach($category->brands as $brand)
                     <li class="py-2 text-sm ">
                         <a class="cursor-pointer hover:text-orange-500 capitalize {{ $marca == $brand->name ? 'text-orange-500 font-semibold' : ''}}"
-                           wire:click="$set('marca', '{{ $brand->name }}')"
-                           href="">
+                           wire:click="$set('marca', '{{ $brand->name }}')">
                             {{ $brand->name }}
                         </a>
                     </li>
@@ -47,10 +45,11 @@
 
         <div class="md:col-span-2 lg:col-span-4">
             @if($view == 'grid')
-                <ul class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     @foreach($products as $product)
                         <li class="bg-white rounded-lg shadow">
                             <article>
+
                                 <figure>
                                     <img class="h-48 w-full object-cover object-center"
                                          src="{{ Storage::url($product->images->first()->url) }}" alt="">
@@ -58,7 +57,7 @@
 
                                 <div class="py-4 px-6">
                                     <h1 class="text-lg font-semibold">
-                                        <a href="">
+                                        <a href="{{ route('products.show', $product) }}">
                                             {{ Str::limit($product->name, 20) }}
                                         </a>
                                     </h1>
@@ -69,7 +68,9 @@
                         </li>
                     @endforeach
                 </ul>
+
             @else
+
                 <ul>
                     @foreach($products as $product)
                         <li class="bg-white rounded-lg shadow mb-4">
@@ -101,10 +102,11 @@
                                     </div>
 
                                     <div class="mt-auto mb-6">
-                                        <x-jet-danger-button>
+                                        <x-danger-link href="{{ route('products.show', $product) }}">
                                             Más información
-                                        </x-jet-danger-button>
+                                        </x-danger-link>
                                     </div>
+
                                 </div>
                             </article>
                         </li>
