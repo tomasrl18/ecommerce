@@ -21,7 +21,11 @@
         </select>
     </div>
 
-    <div class="flex mt-4">
+    <p class="text-gray-700 my-4">
+        <span class="font-semibold text-lg">Stock disponible:</span> {{ $product->stock }}
+    </p>
+
+    <div class="flex">
         <div class="mr-4">
 
             <x-jet-secondary-button
