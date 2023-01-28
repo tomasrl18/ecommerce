@@ -26,7 +26,11 @@
                                 <p class="">Cant: {{ $item->qty }}</p>
 
                                 @isset($item->options['color'])
-                                    <p class="mx-2">- Color: {{ __(ucfirst($item->options['color'])) }}</p>
+                                    <p class="mx-2">Color: {{ __(ucfirst($item->options['color'])) }}</p>
+                                @endisset
+
+                                @isset($item->options['size'])
+                                    <p class="mx-2">{{ $item->options['size'] }}</p>
                                 @endisset
                             </div>
 
