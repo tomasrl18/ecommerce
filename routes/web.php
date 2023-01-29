@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\ShoppingCart;
 use App\Http\Controllers\{CategoryController, ProductsController, SearchController, WelcomeController};
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,8 @@ Route::get('/deletecart', function () {
     \Cart::destroy();
 });
 
-Route::get('search', SearchController::class)->name('search');
+Route::get('search', SearchController::class)
+    ->name('search');
+
+Route::get('shopping-cart', ShoppingCart::class)
+    ->name('shopping-cart');
