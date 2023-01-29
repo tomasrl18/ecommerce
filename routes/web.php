@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, ProductsController, WelcomeController};
+use App\Http\Controllers\{CategoryController, ProductsController, SearchController, WelcomeController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class);
@@ -18,3 +18,5 @@ Route::get('products/{product}', [ProductsController::class, 'show'])
 Route::get('/deletecart', function () {
     \Cart::destroy();
 });
+
+Route::get('search', SearchController::class)->name('search');
