@@ -21,6 +21,9 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->on('users');
 
+            $table->string('contact');
+            $table->string('phone');
+
             $table->enum('status', [Order::PENDIENTE,Order::RECIBIDO, Order::ENVIADO, Order::ENTREGADO,
                 Order::ANULADO])->default(Order::PENDIENTE);
 
@@ -30,18 +33,22 @@ class CreateOrdersTable extends Migration
             $table->json('content');
 
             $table->foreignId('department_id')
+                ->nullable()
                 ->references('id')
                 ->on('departments');
 
             $table->foreignId('city_id')
+                ->nullable()
                 ->references('id')
                 ->on('cities');
 
             $table->foreignId('district_id')
+                ->nullable()
                 ->references('id')
                 ->on('districts');
 
             $table->string('address')->nullable();
+            $table->string('reference')->nullable();
 
             $table->timestamps();
         });
