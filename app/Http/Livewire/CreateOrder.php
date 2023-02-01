@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\City;
 use App\Models\Department;
+use App\Models\District;
 use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
@@ -69,5 +71,21 @@ class CreateOrder extends Component
     public function render()
     {
         return view('livewire.create-order');
+    }
+
+    public function updatedDepartmentId($value){
+        $this->cities = City::where('department_id', $value)->get();
+
+        $this->reset(['city_id', 'district_id']);
+    }
+
+    public function updatedCityId($value){
+        $city = City::find($value);
+
+        $this->shipping_cost = $city->cost;
+
+        $this->districts = District::where('city_id', $value)->get();
+
+        $this->reset('district_id');
     }
 }
