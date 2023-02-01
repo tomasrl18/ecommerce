@@ -66,6 +66,7 @@
                         </td>
                     </tr>
                 @endforeach
+
                 </tbody>
             </table>
 
@@ -79,7 +80,9 @@
 
             <div class="flex flex-col items-center">
                 <x-cart />
+
                 <p class="text-lg text-gray-700 mt-4">TU CARRITO DE COMPRAS ESTÁ VACÍO</p>
+
                 <x-button-link href="/" class="mt-4 px-16">
                     Ir al inicio
                 </x-button-link>
@@ -87,4 +90,22 @@
         @endif
 
     </section>
+
+    @if(Cart::count())
+        <div class="bg-white rounded-lg shadow-lg px-6 py-4 mt-4">
+            <div class="flex justify-between items-center">
+
+                <div class="text-gray-700">
+                    <span class="font-bold text-lg">Total:</span>
+                    {{ Cart::subtotal() }} &euro;
+                </div>
+
+                <div>
+                    <x-button-link>
+                        Continuar
+                    </x-button-link>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
