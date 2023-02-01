@@ -91,7 +91,11 @@
             </div>
 
             <div>
-                <x-jet-button class="mt-6 mb-4" wire:click="create_order">
+                <x-jet-button
+                    wire:laoding.att="disabled"
+                    wire:target="create_order"
+                    class="mt-6 mb-4"
+                    wire:click="create_order">
                     Continuar con la compra
                 </x-jet-button>
 

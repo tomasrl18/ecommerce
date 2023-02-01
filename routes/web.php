@@ -2,7 +2,7 @@
 
 use App\Http\Livewire\CreateOrder;
 use App\Http\Livewire\ShoppingCart;
-use App\Http\Controllers\{CategoryController, ProductsController, SearchController, WelcomeController};
+use App\Http\Controllers\{CategoryController, OrderController, ProductsController, SearchController, WelcomeController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class);
@@ -17,10 +17,6 @@ Route::get('categories/{category}', [CategoryController::class, 'show'])
 Route::get('products/{product}', [ProductsController::class, 'show'])
     ->name('products.show');
 
-//Route::get('/deletecart', function () {
-//    \Cart::destroy();
-//});
-
 Route::get('search', SearchController::class)
     ->name('search');
 
@@ -30,3 +26,6 @@ Route::get('shopping-cart', ShoppingCart::class)
 Route::get('orders/create', CreateOrder::class)
     ->middleware('auth')
     ->name('orders.create');
+
+Route::get('orders/{order}/payment', [OrderController::class, 'payment'])
+    ->name('orders.payment');
