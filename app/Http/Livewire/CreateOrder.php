@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class CreateOrder extends Component
 {
+    public $envio_type = 1;
+
     public $address, $reference;
 
     public $departments, $cities = [], $districts = [];
