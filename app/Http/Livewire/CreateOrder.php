@@ -74,7 +74,8 @@ class CreateOrder extends Component
 
         Cart::destroy();
 
-        return $this->redirect()->route('orders.payment', $order);
+        return redirect()->route('orders.payment', $order);
+        //return redirect("orders/{$order->id}/payment");
     }
 
     public function render()
