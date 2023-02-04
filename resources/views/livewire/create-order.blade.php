@@ -152,17 +152,27 @@
 
                 <div class="text-gray-700">
                     <p class="flex justify-between items-center">
-                        Subtotal
-                        <span>{{ Cart::subtotal() }} &euro;</span>
+                        Subtotal:
+{{--                        <span>{{ Cart::subtotal() }} &euro;</span>--}}
+                        <span>{{ str_replace(',', '', Cart::subtotal()) }} &euro;</span>
                     </p>
+
+{{--                    <p class="flex justify-between items-center">--}}
+{{--                        @if(is_numeric(Cart::subtotal()))--}}
+{{--                            <p>Hola</p>--}}
+{{--                        @else--}}
+{{--                            @dd(str_replace(',', '', Cart::subtotal()))--}}
+{{--                        @endif--}}
+{{--                    </p>--}}
 
                     <p class="flex justify-between items-center">
                         Envío
                         <span class="font-semibold">
+{{--                            @dd($shipping_cost)--}}
                             @if($envio_type == 1 || $shipping_cost == 0)
                                 Gratis
                             @else
-                                {{ $shipping_cost }} &euro;
+{{--                                {{ $shipping_cost }} &euro;--}}
                             @endif
                         </span>
                     </p>
@@ -172,10 +182,12 @@
                     <p class="flex justify-between items-center font-semibold">
                         <span class="text-lg">Total</span>
 
+
+
                         @if($envio_type == 1)
-                            {{ Cart::subtotal() }} &euro;
+                            {{ str_replace(',', '', Cart::subtotal()) }} &euro;
                         @else
-                            {{ Cart::subtotal() + $shipping_cost }} &euro;
+                            {{ str_replace(',', '', Cart::subtotal()) + $shipping_cost }} &euro;
                         @endif
                     </p>
                 </div>
