@@ -168,11 +168,10 @@
                     <p class="flex justify-between items-center">
                         Envío
                         <span class="font-semibold">
-{{--                            @dd($shipping_cost)--}}
                             @if($envio_type == 1 || $shipping_cost == 0)
                                 Gratis
                             @else
-{{--                                {{ $shipping_cost }} &euro;--}}
+                                {{ $shipping_cost }} &euro;
                             @endif
                         </span>
                     </p>
@@ -181,8 +180,6 @@
 
                     <p class="flex justify-between items-center font-semibold">
                         <span class="text-lg">Total</span>
-
-
 
                         @if($envio_type == 1)
                             {{ str_replace(',', '', Cart::subtotal()) }} &euro;
