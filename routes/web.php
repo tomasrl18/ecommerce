@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('prueba', function () {
-    $orders = \App\Models\Order::where('status', 1)
+    $orders = Order::where('status', 1)
         ->where('created_at','<',now()
             ->subMinutes(10))->get();
 
