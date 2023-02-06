@@ -3,14 +3,11 @@
 use App\Http\Livewire\CreateOrder;
 use App\Http\Livewire\PaymentOrder;
 use App\Http\Livewire\ShoppingCart;
+use App\Models\Order;
 use App\Http\Controllers\{CategoryController, OrderController, ProductsController, SearchController, WelcomeController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class);
-
-//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//    return view('dashboard');
-//})->name('dashboard');
 
 Route::get('categories/{category}', [CategoryController::class, 'show'])
     ->name('categories.show');
@@ -33,4 +30,24 @@ Route::middleware(['auth'])->group(function () {
         ->name('orders.show');
     Route::get('orders/{order}/payment', PaymentOrder::class)
         ->name('orders.payment');
+});
+
+Route::get('prueba', function () {
+    $orders = \App\Models\Order::where('status', 1)
+        ->where('created_at','<',now()
+            ->subMinutes(10))->get();
+
+    foreach ($orders as $order) {
+        $items = json_decode($order->content);
+
+        foreach ($items as $item) {
+            increase($item);
+        }
+
+        $order->status = 5;
+
+        $order->save();
+    }
+
+    return "Completado con éxito";
 });
