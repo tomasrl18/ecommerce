@@ -13,15 +13,23 @@
             </select>
         </div>
 
-        <div>
-            <x-jet-label value="Subcategorías" />
+        <div class="mb-4">
+            <div class="mb-4">
+                <x-jet-label value="Nombre" />
+                <x-jet-input type="text"
+                             class="w-full"
+                             wire:model="name"
+                             placeholder="Ingrese el nombre del producto" />
+            </div>
+        </div>
 
-            <select class="w-full form-control" wire:model="subcategory_id">
-                <option value="" selected disabled>Seleccione una subcategoría</option>
-                @foreach($subcategories as $subcategory)
-                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
-                @endforeach
-            </select>
+        <div class="mb-4">
+            <x-jet-label value="Slug" />
+            <x-jet-input type="text"
+                         disabled
+                         wire:model="slug"
+                         class="w-full bg-gray-200"
+                         placeholder="Ingrese el slug del producto" />
         </div>
     </div>
 </div>
