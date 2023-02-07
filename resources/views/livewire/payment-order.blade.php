@@ -120,14 +120,14 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: {{ $order->total }}
+                            value: "{{ $order->total }}"
                         }
                     }]
                 });
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(orderData) {
-                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                    Livewire.emit('payOrder');
                 });
             }
         }).render('#paypal-button-container');
