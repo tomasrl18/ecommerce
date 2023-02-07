@@ -1,8 +1,14 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-600">
-            Lista de productos
-        </h2>
+        <div class="flex items-center">
+            <h2 class="font-semibold text-xl text-gray-600 leading-tight">
+                Lista de productos
+            </h2>
+
+            <x-button-link class="ml-auto" href="{{route('admin.products.create')}}">
+                Agregar producto
+            </x-button-link>
+        </div>
     </x-slot>
 
     <div class="px-4 sm:px-6 lg:px-8">
@@ -19,6 +25,7 @@
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+
                         <x-table-responsive>
                             <div class="px-6 py-4">
                                 <x-jet-input class="w-full"
@@ -27,8 +34,9 @@
                                              placeholder="Introduzca el nombre del producto a buscar" />
                             </div>
 
-                            <table class="min-w-full divide-y divide-gray-300">
-                                <thead class="bg-gray-50">
+                            @if($products->count())
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Nombre</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Categoria</th>
@@ -38,9 +46,9 @@
                                             <span class="sr-only">Editar</span>
                                         </th>
                                     </tr>
-                                </thead>
+                                    </thead>
 
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tbody class="divide-y divide-gray-200 bg-white">
 
                                     @foreach($products as $product)
                                         <tr>
@@ -54,7 +62,7 @@
                                                         <div class="font-medium text-gray-900">
                                                             {{ $product->name }}
                                                         </div>
-{{--                                                        <div class="text-gray-500">lindsay.walton@example.com</div>--}}
+                                                        {{--                                                        <div class="text-gray-500">lindsay.walton@example.com</div>--}}
                                                     </div>
                                                 </div>
                                             </td>
@@ -80,14 +88,22 @@
                                         </tr>
                                     @endforeach
 
-                                <!-- More people... -->
-                                </tbody>
-                            </table>
+                                    <!-- More people... -->
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="px-6 py-4">
+                                    No existen productos coincidentes
+                                </div>
+                            @endif
 
-                            <div class="px-6 py-4">
-                                {{ $products->links() }}
-                            </div>
+                            @if($products->hasPages())
+                                <div class="px-6 py-4">
+                                    {{ $products->links() }}
+                                </div>
+                            @endif
                         </x-table-responsive>
+
                     </div>
                 </div>
             </div>
