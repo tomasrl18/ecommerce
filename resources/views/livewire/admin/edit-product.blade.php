@@ -106,7 +106,7 @@
             wire:target="save"
             wire:click="save"
             class="ml-auto">
-            Crear producto
+            Actualizar producto
         </x-jet-button>
     </div>
 

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class EditProduct extends Component
@@ -60,5 +61,24 @@ class EditProduct extends Component
     public function getSubcategoryProperty()
     {
         return Subcategory::find($this->product->subcategory_id);
+    }
+
+    public function save()
+    {
+        $this->rules['product.slug'] = 'required|unique:products,slug,' . $this->product->id;
+
+        if ($this->product->subcategory_id) {
+            if (!$this->subcategory->color && !$this->subcategory->size) {
+                $this->rules['product.quantity'] = 'required|numeric';
+            }
+        }
+
+        $this->validate();
+
+        $this->product->save();
+    }
+
+    public function updatedProductName($value){
+        $this->product->slug = Str::slug($value);
     }
 }
