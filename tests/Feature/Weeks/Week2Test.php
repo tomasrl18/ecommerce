@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Weeks;
 
+use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -33,7 +35,7 @@ class Week2Test extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -41,5 +43,43 @@ class Week2Test extends TestCase
         $this->assertAuthenticated();
 
         $this->post('/')->assertSee('Perfil');
+    }
+
+    /** @test */
+    function in_the_main_view_you_can_see_five_products_of_a_category()
+    {
+        $category = Category::factory()->create();
+        $subcategory = Subcategory::factory()->create();
+        $brand = Brand::factory()->create();
+        $brand->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => 'Producto 1',
+            'subcategory_id' => $subcategory->id,
+            'brand_id' => $category->brands->random(),
+        ]);
+
+//        $p2 = Product::factory()->create([
+//            'name' => 'Producto 2',
+//            'subcategory_id' => $subcategory->id,
+//        ]);
+//
+//        $p3 = Product::factory()->create([
+//            'name' => 'Producto 3',
+//            'subcategory_id' => $subcategory->id,
+//        ]);
+//
+//        $p4 = Product::factory()->create([
+//            'name' => 'Producto 4',
+//            'subcategory_id' => $subcategory->id,
+//        ]);
+//
+//        $p5 = Product::factory()->create([
+//            'name' => 'Producto 5',
+//            'subcategory_id' => $subcategory->id,
+//        ]);
+
+        $this->get('/')
+            ->assertSee($p1->name);
     }
 }

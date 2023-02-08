@@ -16,7 +16,10 @@ class CreateBrandCategoryTable extends Migration
         Schema::create('brand_category', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('brand_id')->references('id')->on('brands');
+            $table->foreignId('brand_id')
+                ->references('id')
+                ->on('brands');
+
             $table->foreignId('category_id')->references('id')->on('categories');
 
             $table->timestamps();
