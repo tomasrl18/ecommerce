@@ -31,5 +31,25 @@
                          class="w-full bg-gray-200"
                          placeholder="Ingrese el slug del producto" />
         </div>
+
+        <div class="mb-4">
+            <div wire:ignore>
+                <x-jet-label value="Descripción" />
+                <textarea class="w-full form-control" rows="4"
+                      wire:model="description"
+                      x-data
+                      x-init="ClassicEditor.create($refs.miEditor)
+                        .then(function(editor) {
+                            editor.model.document.on('change:data', () => {
+                            @this.set('description', editor.getData())
+                            })
+                        })
+                        .catch( error => {
+                            console.error( error );
+                        } );"
+                      x-ref="miEditor">
+                </textarea>
+            </div>
+        </div>
     </div>
 </div>

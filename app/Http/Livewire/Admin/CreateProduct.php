@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class CreateProduct extends Component
 {
-    public $name, $slug;
+    public $name, $slug, $description;
     public $categories, $subcategories = [];
     public $category_id = '', $subcategory_id = '';
 
