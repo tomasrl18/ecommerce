@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class CreateProduct extends Component
 {
-    public $name, $slug, $description;
+    public $name, $slug, $description, $price, $quantity;
     public $categories, $subcategories = [], $brands = [];
     public $category_id = '', $subcategory_id = '', $brand_id = '';
 
@@ -39,5 +39,10 @@ class CreateProduct extends Component
 
     public function updatedName($value){
         $this->slug = Str::slug($value);
+    }
+
+    public function getSubcategoryProperty()
+    {
+        return Subcategory::find($this->subcategory_id);
     }
 }
