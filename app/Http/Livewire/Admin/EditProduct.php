@@ -56,12 +56,6 @@ class EditProduct extends Component
         })->get();
     }
 
-    public function render()
-    {
-        return view('livewire.admin.edit-product')
-            ->layout('layouts.admin');
-    }
-
     public function getSubcategoryProperty()
     {
         return Subcategory::find($this->product->subcategory_id);
@@ -94,5 +88,16 @@ class EditProduct extends Component
 
     public function updatedProductName($value){
         $this->product->slug = Str::slug($value);
+    }
+
+    public function refreshProduct()
+    {
+        $this->product = $this->product->fresh();
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.edit-product')
+            ->layout('layouts.admin');
     }
 }
