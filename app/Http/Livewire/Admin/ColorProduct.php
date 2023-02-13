@@ -15,10 +15,11 @@ class ColorProduct extends Component
 
     public $product, $colors;
     public $color_id, $quantity;
-
     public $pivot, $pivot_color_id, $pivot_quantity;
 
     public $open = false;
+
+    protected $listeners = ['delete'];
 
     public function mount()
     {
@@ -67,5 +68,11 @@ class ColorProduct extends Component
         $this->pivot = $pivot;
         $this->pivot_color_id = $pivot->color_id;
         $this->pivot_quantity = $pivot->quantity;
+    }
+
+    public function delete(TbPivot $pivot)
+    {
+        $pivot->delete();
+        $this->product = $this->product->fresh();
     }
 }
