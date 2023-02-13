@@ -129,7 +129,7 @@
 
 @push('scripts')
     <script>
-        Livewire.on('delete', pivot => {
+        Livewire.on('deletePivot', pivot => {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
