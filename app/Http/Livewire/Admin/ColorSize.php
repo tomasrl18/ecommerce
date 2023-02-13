@@ -19,6 +19,8 @@ class ColorSize extends Component
         'quantity' => 'required|numeric'
     ];
 
+    protected $listeners = ['delete'];
+
     public function mount()
     {
         $this->colors = Color::all();
