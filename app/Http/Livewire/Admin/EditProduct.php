@@ -28,6 +28,8 @@ class EditProduct extends Component
         'product.quantity' => 'numeric',
     ];
 
+    protected $listeners = ['refreshProduct'];
+
     public function updatedCategoryId($value)
     {
         $this->subcategories = Subcategory::where('category_id', $value)->get();
