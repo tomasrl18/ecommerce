@@ -32,6 +32,18 @@ class ColorProduct extends Component
         return view('livewire.admin.color-product', compact('productColors'));
     }
 
+    public function update()
+    {
+        $this->pivot->color_id = $this->pivot_color_id;
+        $this->pivot->quantity = $this->pivot_quantity;
+
+        $this->pivot->save();
+
+        $this->product = $this->product->fresh();
+
+        $this->open = false;
+    }
+
     public function save(){
         $this->validate();
 

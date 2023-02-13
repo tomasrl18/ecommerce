@@ -69,9 +69,9 @@
                         <td class="px-4 py-2 flex">
                             <x-jet-secondary-button
                                 class="ml-auto mr-2"
-                                wire:click="edit({{ $color->pivot->id }})"
+                                wire:click="update"
                                 wire:loading.attr="disabled"
-                                wire:target="edit({{ $color->pivot->id }})">
+                                wire:target="update">
                                 Actualizar
                             </x-jet-secondary-button>
 
