@@ -15,6 +15,8 @@ class ColorProduct extends Component
     public $product, $colors;
     public $color_id, $quantity;
 
+    public $open = true;
+
     public function mount()
     {
         $this->colors = Color::all();
