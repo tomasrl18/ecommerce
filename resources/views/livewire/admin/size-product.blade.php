@@ -34,11 +34,13 @@
                             <i class="fas fa-edit"></i>
                         </x-jet-button>
 
-                        <x-jet-danger-button>
+                        <x-jet-danger-button wire:click="$emit('deleteSize', {{ $size->id }})">
                             <i class="fas fa-trash"></i>
                         </x-jet-danger-button>
                     </div>
                 </div>
+
+                @livewire('admin.color-size', ['size' => $size], key('color-size-' . $size->id))
             </li>
         @endforeach
     </ul>
