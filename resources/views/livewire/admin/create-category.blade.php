@@ -1,5 +1,5 @@
 <div>
-    <x-jet-form-section submit="save">
+    <x-jet-form-section submit="save" class="mb-6">
         <x-slot name="title">
             Crear nueva categoría
         </x-slot>
