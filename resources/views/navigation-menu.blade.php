@@ -146,7 +146,7 @@
                 Productos
             </x-jet-responsive-nav-link>
 
-            <x-jet-responsive-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
+            <x-jet-responsive-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.*')">
                 Categorías
             </x-jet-responsive-nav-link>
         </div>
