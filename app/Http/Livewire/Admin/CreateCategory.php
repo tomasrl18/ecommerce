@@ -22,6 +22,8 @@ class CreateCategory extends Component
         'brands' => [],
     ];
 
+    public $listeners = ['delete'];
+
     protected $rules = [
         'createForm.name' => 'required',
         'createForm.slug' => 'required|unique:categories,slug',
@@ -80,6 +82,12 @@ class CreateCategory extends Component
     public function getCategories()
     {
         $this->categories = Category::all();
+    }
+
+    public function delete(Category $category)
+    {
+        $category->delete();
+        $this->getCategories();
     }
 
     public function render()

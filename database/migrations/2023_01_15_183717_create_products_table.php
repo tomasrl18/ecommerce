@@ -19,10 +19,20 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
             $table->string('slug');
+
             $table->text('description');
+
             $table->float('price');
-            $table->foreignId('subcategory_id')->references('id')->on('subcategories');
-            $table->foreignId('brand_id')->references('id')->on('brands');
+
+            $table->foreignId('subcategory_id')
+                ->references('id')
+                ->on('subcategories')
+                ->onDelete('cascade');
+
+            $table->foreignId('brand_id')
+                ->references('id')
+                ->on('brands');
+
             $table->integer('quantity')->nullable();
 
             // 1 = Borrador

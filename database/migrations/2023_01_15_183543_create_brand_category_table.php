@@ -18,9 +18,13 @@ class CreateBrandCategoryTable extends Migration
 
             $table->foreignId('brand_id')
                 ->references('id')
-                ->on('brands');
+                ->on('brands')
+                ->onDelete('cascade');
 
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
