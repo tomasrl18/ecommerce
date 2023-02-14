@@ -34,7 +34,7 @@
                     Icono
                 </x-jet-label>
 
-                <x-jet-input wire:model.defer="createForm.icon" type="text" class="w-full mt-1" />
+                <x-jet-input wire:model.defer="createForm.icon" type="text" class="w-full mt-1" id="{{ $image }}" />
 
                 <x-jet-input-error for="createForm.icon" />
             </div>
