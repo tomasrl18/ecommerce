@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\{CategoryController, ProductController};
-use App\Http\Livewire\Admin\{CreateProduct, EditProduct, ShowCategory, ShowProducts};
+use App\Http\Livewire\Admin\{BrandComponent, CreateProduct, EditProduct, ShowCategory, ShowProducts};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowProducts::class)
@@ -21,3 +21,6 @@ Route::get('categories', [CategoryController::class, 'index'])
 
 Route::get('categories/{category}', ShowCategory::class)
     ->name('admin.categories.show');
+
+Route::get('brands', BrandComponent::class)
+    ->name('admin.brands.index');

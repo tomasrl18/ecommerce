@@ -27,11 +27,12 @@ class CreateProductsTable extends Migration
             $table->foreignId('subcategory_id')
                 ->references('id')
                 ->on('subcategories')
-                ->onDelete('cascade');
+                ->onDelete('CASCADE');
 
             $table->foreignId('brand_id')
                 ->references('id')
-                ->on('brands');
+                ->on('brands')
+                ->onDelete('CASCADE');
 
             $table->integer('quantity')->nullable();
 
