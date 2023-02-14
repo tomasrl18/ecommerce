@@ -129,6 +129,14 @@
         <x-slot name="content">
             <div class="space-y-3">
                 <div>
+                    <div>
+                        @if ($editImage)
+                            <img class="w-full h-64 object-cover object-center" src="{{ $editImage->temporaryUrl() }}" alt="">
+                        @else
+                            <img class="w-full h-64 object-cover object-center" src="{{ Storage::url($editForm['image']) }}" alt="">
+                        @endif
+                    </div>
+
                     <x-jet-label>
                         Nombre
                     </x-jet-label>
@@ -190,7 +198,9 @@
         </x-slot>
 
         <x-slot name="footer">
-
+            <x-jet-danger-button wire:loading.attr="disabled" wire:target="editImage">
+                Actualizar
+            </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
 </div>
