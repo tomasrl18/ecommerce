@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Livewire\Admin\{CreateProduct, EditProduct, ShowProducts};
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,6 @@ Route::get('products/create', CreateProduct::class)
 
 Route::post('product/{product}/files', [ProductController::class, 'files'])
     ->name('admin.products.files');
+
+Route::get('categories', [CategoryController::class, 'index'])
+    ->name('admin.categories.index');
