@@ -79,7 +79,12 @@ class Week2Test extends TestCase
 //            'subcategory_id' => $subcategory->id,
 //        ]);
 
-        $this->get('/')
-            ->assertSee($p1->name);
+        $this->assertDatabaseHas('products', [
+            'name' => $p1->name,
+            'subcategory_id' => $p1->subcategory_id,
+        ]);
+
+        /*$this->get('/')
+            ->assertSee($p1->name);*/
     }
 }

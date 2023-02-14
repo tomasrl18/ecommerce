@@ -11,11 +11,11 @@ use Tests\TestCase;
 class Week1Test extends TestCase
 {
     /** @test */
-    public function ()
+    /*public function ()
     {
 
 
 //        Livewire::test(Navigation::class)
 //            ->
-    }
+    }*/
 }
