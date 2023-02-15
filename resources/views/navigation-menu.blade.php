@@ -16,6 +16,10 @@
                         Productos
                     </x-jet-nav-link>
 
+                    <x-jet-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.*')">
+                        Pedidos
+                    </x-jet-nav-link>
+
                     <x-jet-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
                         Categorías
                     </x-jet-nav-link>
