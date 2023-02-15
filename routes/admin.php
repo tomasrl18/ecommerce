@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\{CategoryController, OrderController, ProductController};
-use App\Http\Livewire\Admin\{BrandComponent, CreateProduct, EditProduct, ShowCategory, ShowProducts};
+use App\Http\Livewire\Admin\{BrandComponent,
+    CreateProduct,
+    DepartmentComponent,
+    EditProduct,
+    ShowCategory,
+    ShowProducts};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowProducts::class)
@@ -30,3 +35,6 @@ Route::get('orders', [OrderController::class, 'index'])
 
 Route::get('orders/{order}', [OrderController::class, 'show'])
     ->name('admin.orders.show');
+
+Route::get('departments', DepartmentComponent::class)
+    ->name('admin.departments.index');
