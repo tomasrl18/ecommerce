@@ -96,26 +96,26 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-300">
-                @foreach ($categories as $category)
-                    <tr>
-                        <td class="py-2">
-                            <span class="inline-block w-8 text-center mr-2">
-                                {!!$category->icon!!}
-                            </span>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td class="py-2">
+                                <span class="inline-block w-8 text-center mr-2">
+                                    {!!$category->icon!!}
+                                </span>
 
-                            <a href="{{route('admin.categories.show', $category)}}" class="uppercase underline hover:text-blue-600">
-                                {{ $category->name }}
-                            </a>
-                        </td>
-                        <td class="py-2">
-                            <div class="flex divide-x divide-gray-300 font-semibold">
-                                <a class="pr-2 hover:text-blue-600 cursor-pointer" wire:click="edit('{{$category->slug}}')">Editar</a>
-                                <a class="pl-2 hover:text-red-600 cursor-pointer"
-                                   wire:click="$emit('deleteCategory', '{{ $category->slug }}')">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
+                                <a href="{{route('admin.categories.show', $category)}}" class="uppercase underline hover:text-blue-600">
+                                    {{ $category->name }}
+                                </a>
+                            </td>
+                            <td class="py-2">
+                                <div class="flex divide-x divide-gray-300 font-semibold">
+                                    <a class="pr-2 hover:text-blue-600 cursor-pointer" wire:click="edit('{{$category->slug}}')">Editar</a>
+                                    <a class="pl-2 hover:text-red-600 cursor-pointer"
+                                       wire:click="$emit('deleteCategory', '{{ $category->slug }}')">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </x-slot>
