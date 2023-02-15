@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\{BrandComponent,
     DepartmentComponent,
     EditProduct,
     ShowCategory,
+    ShowDepartment,
     ShowProducts};
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,6 @@ Route::get('orders/{order}', [OrderController::class, 'show'])
 
 Route::get('departments', DepartmentComponent::class)
     ->name('admin.departments.index');
+
+Route::get('departments/{department}', ShowDepartment::class)
+    ->name('admin.departments.show');

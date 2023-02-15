@@ -53,8 +53,8 @@
                     @foreach ($departments as $department)
                         <tr>
                             <td class="py-2">
-                                <a href="" class="uppercase underline hover:text-blue-600">
-                                    {{$department->name}}
+                                <a href="{{route('admin.departments.show', $department)}}" class="uppercase underline hover:text-blue-600">
+                                    {{ $department->name }}
                                 </a>
                             </td>
 
