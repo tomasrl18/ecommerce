@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -10,7 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::query()->where('status', '!=', 1);
+        $orders = Order::query()->where('user_id', auth()->user()->id);
 
         if (request('status')) {
             $orders->where('status', request('status'));
@@ -19,14 +18,19 @@ class OrderController extends Controller
         $orders = $orders->get();
 
         for ($i = 1; $i <= 5; $i++) {
-            $ordersByStatus[$i] = Order::where('status', $i)->count();
+            $ordersByStatus[$i] = Order::where('user_id', auth()->user()->id)->where('status', $i)->count();
         }
 
-        return view('admin.orders.index', compact('orders', 'ordersByStatus'));
+        return view('orders.index', compact('orders', 'ordersByStatus'));
     }
 
     public function show(Order $order)
     {
-        return view('admin.orders.show', compact('order'));
+        $this->authorize('view', $order);
+
+        $items = json_decode($order->content);
+        $envio = json_decode($order->envio);
+
+        return view('orders.show', compact('order', 'items', 'envio'));
     }
 }
