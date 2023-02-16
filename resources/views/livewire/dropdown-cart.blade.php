@@ -37,7 +37,12 @@
                             <p>{{ $item->price }} &euro;</p>
                         </article>
                     </li>
-                    @empty
+                @empty
+                    <li class="py-6 px-4">
+                        <p class="text-center text-gray-700">
+                            No tiene agregado ningún item en el carrito
+                        </p>
+                    </li>
                 @endforelse
             </ul>
 
