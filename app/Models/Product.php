@@ -50,4 +50,9 @@ class Product extends Model
             return $this->quantity;
         }
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

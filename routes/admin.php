@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\Admin\{CategoryController, ProductController};
+use App\Http\Controllers\Admin\{CategoryController, ProductController, OrderController};
 use App\Http\Livewire\Admin\{BrandComponent,
     CreateProduct,
     DepartmentComponent,
