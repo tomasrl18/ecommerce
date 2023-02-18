@@ -86,7 +86,11 @@ class EditProduct extends Component
         $this->product = $this->product->fresh();
     }
 
-    public function updatedProductName($value){
+    public function updatedProductName($value) {
+        if (Str::length($value) < 1) {
+            return;
+        }
+
         $this->product->slug = Str::slug($value);
     }
 

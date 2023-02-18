@@ -51,6 +51,9 @@ class Product extends Model
         }
     }
 
+    // Hay un error de que si editas el nombre de un producto, peta,
+    // y se arregla comentando este método, pero la mejor manera es
+    // vamonos al EditProduct método updatedProductName
     public function getRouteKeyName()
     {
         return 'slug';
