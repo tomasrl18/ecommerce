@@ -2,36 +2,44 @@
     <div class="container-menu flex items-center h-16 justify-between md:justify-start">
         <a :class="{'bg-opacity-100 text-orange-500': open}" x-on:click="show()" class="flex flex-col items-center justify-center order-last md:order-first px-6 sm:px-4 px-4 bg-white bg-opacity-25 text-white cursor-pointer font-semibold h-full">
 
+            <!-- Logo hamburguesa -->
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
 
+            <!-- Texto debajo de la hamburguesa -->
             <span class="text-sm hidden sm:block">
                 Categorías
             </span>
         </a>
 
+        <!-- Logo naranja de la barra de navegación -->
         <a href="/" class="mx-6">
             <x-jet-application-mark class="block h-9 w-auto"></x-jet-application-mark>
         </a>
 
+        <!-- Barra de navegación -->
         <div class="flex-1 hidden md:block">
             @livewire('search')
         </div>
 
         <div class="mx-6 relative hidden md:block">
+            <!-- Comprueba si el usuario está autenticado -->
             @auth
                 <x-jet-dropdown align="right" width="48">
                     <x-slot name="trigger">
-
+                        <!-- Botón e imagen de tu usuario cuándo estás logueado -->
                         <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                             <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                         </button>
-
                     </x-slot>
 
                     <x-slot name="content">
-                        <!-- Account Management -->
+                        <!--
+                            Es un texto en pequeño que hay en el dropdown de perfil (cuándo se está logueado)
+                            y el texto se traduce con un if que hay en vendor/laravel/framework/Illuminate/Foundation/helpers.php
+                            línea 855
+                        -->
                         <div class="block px-4 py-2 text-xs text-gray-400">
                             {{ __('Manage Account') }}
                         </div>
@@ -44,12 +52,14 @@
                             {{ __('My Orders') }}
                         </x-jet-dropdown-link>
 
+                        <!-- Solo se podrá acceder si el usuario tiene el rol de admin -->
                         @role('admin')
                             <x-jet-dropdown-link href="{{ route('admin.index') }}">
                                 {{ __('Admin') }}
                             </x-jet-dropdown-link>
                         @endrole
 
+                        <!-- Una línea gris encima de Finalizar Sesión -->
                         <div class="border-t border-gray-100"></div>
 
                         <!-- Authentication -->
@@ -99,13 +109,16 @@
                     @foreach($categories as $category)
                         <li class="navigation-link text-trueGray-500 hover:bg-orange-500 hover:text-white">
                             <a href="{{ route('categories.show', $category) }}" class="py-2 px-4 text-sm flex items-center">
+                                <!-- Icono de las categorías del dropdown de la hamburguesa -->
                                 <span class="flex justify-center w-9">
                                     {!! $category->icon !!}
                                 </span>
 
+                                <!-- Nombre de las categorías del dropdown de la hamburguesa -->
                                 {{ $category->name }}
                             </a>
 
+                            <!-- Imágenes y subcategorías que salen en el dropdown de la hamburguesa -->
                             <div class="navigation-submenu bg-gray-100 absolute w-3/4 h-full top-0 right-0 hidden">
                                 <x-navigation-subcategories :category="$category" />
                             </div>
@@ -120,6 +133,7 @@
         </div>
 
         <div class="bg-white h-full overflow-y-auto">
+            <!-- Barra de navegación -->
             <div class="container-menu bg-gray-200 py-3 mb-2">
                 @livewire('search')
             </div>
@@ -138,10 +152,12 @@
                 @endforeach
             </ul>
 
+            <!-- No tengo ni idea de dónde está esto -->
             <p class="text-trueGray-500 px-6 my-2">USUARIOS</p>
 
             @livewire('cart-movil')
 
+            <!-- Esto es es de la visión de móvil -->
             @auth
                 <a href="{{ route('profile.show') }}" class="py-2 px-4 text-sm flex items-center text-trueGray-500 hover:bg-orange-500 hover:text-white">
                     <span class="flex justify-center w-9">

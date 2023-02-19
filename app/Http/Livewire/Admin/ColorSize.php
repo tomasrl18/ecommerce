@@ -72,6 +72,12 @@ class ColorSize extends Component
         $this->open = false;
     }
 
+    public function delete(TbPivot $pivot)
+    {
+        $pivot->delete();
+        $this->size = $this->size->fresh();
+    }
+
     public function render()
     {
         $sizeColors = $this->size->colors;

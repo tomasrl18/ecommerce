@@ -23,15 +23,6 @@ class CreateOrder extends Component
         'envio_type' => 'required',
     ];
 
-    public function updatedEnvioType($value)
-    {
-        if ($value == 1) {
-            $this->resetValidation([
-                'department_id', 'city_id', 'district_id', 'address', 'reference',
-            ]);
-        }
-    }
-
     public function mount()
     {
         $this->departments = Department::all();
@@ -85,9 +76,13 @@ class CreateOrder extends Component
         //return redirect("orders/{$order->id}/payment");
     }
 
-    public function render()
+    public function updatedEnvioType($value)
     {
-        return view('livewire.create-order');
+        if ($value == 1) {
+            $this->resetValidation([
+                'department_id', 'city_id', 'district_id', 'address', 'reference',
+            ]);
+        }
     }
 
     public function updatedDepartmentId($value){
@@ -104,5 +99,10 @@ class CreateOrder extends Component
         $this->districts = District::where('city_id', $value)->get();
 
         $this->reset('district_id');
+    }
+
+    public function render()
+    {
+        return view('livewire.create-order');
     }
 }

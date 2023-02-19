@@ -37,8 +37,7 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         <img class="h-10 w-10 rounded-full object-cover object-center"
-                                             src="{{ $item->options->image }}"
-                                             alt="">
+                                             src="{{ $item->options->image }}" alt="">
                                     </div>
 
                                     <div class="ml-4">
@@ -79,6 +78,7 @@
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-500">
+                                    <!-- Este options lo recibe de la clase AddCartItem -->
                                     @if ($item->options->size)
                                         @livewire('update-cart-item-size', ['rowId' => $item->rowId], key($item->rowId))
                                     @elseif($item->options->color)
