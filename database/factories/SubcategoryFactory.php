@@ -19,7 +19,7 @@ class SubcategoryFactory extends Factory
             'name' => $this->faker->word,
             'slug' => Str::slug($this->faker->word),
             'color' => false,
-            'image' => 'subcategories/' . $this->faker->picsum(storage_path('app/public/subcategories'), 640, 480, null, false)
+            //'image' => 'subcategories/' . $this->faker->picsum(storage_path('app/public/subcategories'), 640, 480, null, false)
         ];
     }
 }
