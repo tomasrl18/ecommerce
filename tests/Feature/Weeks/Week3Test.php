@@ -5,6 +5,7 @@ namespace Tests\Feature\Weeks;
 use App\Http\Livewire\AddCartItem;
 use App\Http\Livewire\AddCartItemColor;
 use App\Http\Livewire\AddCartItemSize;
+use App\Http\Livewire\DropdownCart;
 use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,6 +50,7 @@ class Week3Test extends TestCase
     {
         $p1 = $this->createProduct(true, true);
         $p2 = $this->createProduct(true, true);
+
         $size = $p1->sizes->first();
         $color = $p1->sizes->first()->colors->first();
 
@@ -62,6 +64,69 @@ class Week3Test extends TestCase
 
         $this->assertEquals($p1->id, Cart::content()->first()->id);
         $this->assertNotEquals($p2->id, Cart::content()->first()->id);
+    }
+
+    /** @test */
+    function it_shows_the_items_when_click_in_the_icon_cart()
+    {
+        $p1 = $this->createProduct();
+        $p2 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1)
+            ->assertStatus(200);
+
+        Livewire::test(DropdownCart::class)
+            ->assertSee($p1->name)
+            ->assertDontSee($p2->name);
+    }
+
+    /** @test */
+    function the_number_of_the_red_circle_of_the_shopping_cart_increments_when_an_item_is_added()
+    {
+        $p1 = $this->createProduct();
+        $p2 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->set('qty', 13)
+            ->call('addItem', $p1)
+            ->assertStatus(200);
+
+        Livewire::test(DropdownCart::class)
+            ->assertSee(13)
+            ->assertSee($p1->name)
+            ->assertDontSee($p2->name);
+
+        Livewire::test(AddCartItem::class, ['product' => $p2])
+            ->call('addItem', $p2)
+            ->assertStatus(200);
+
+        Livewire::test(DropdownCart::class)
+            ->assertSee(14)
+            ->assertSee($p1->name)
+            ->assertSee($p2->name);
+    }
+
+    /** @test */
+    function it_is_not_possible_to_add_more_products_than_the_total_stock_to_the_shopping_cart()
+    {
+        $quantity = 2;
+        $p1 = $this->createProduct(false, false, $quantity);
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1)
+            ->assertStatus(200);
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1)
+            ->assertStatus(200);
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1);
+
+        Livewire::test(DropdownCart::class)
+            ->assertSee(2)
+            ->assertSee($p1->name);
     }
 
     function createProduct($color = false, $size = false, $quantity = 5)
