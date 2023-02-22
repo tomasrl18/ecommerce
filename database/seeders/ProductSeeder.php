@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        // Esto debería de estar a 250, lo he puesto a 50 por el bien de mi tiempo
+        // Esto debería de estar a 250, lo he puesto a 100 por el bien de mi tiempo
         Product::factory(100)->create()
             ->each(function(Product $product){
                 Image::factory(4)->create([
