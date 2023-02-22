@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Weeks;
 
-use App\Http\Livewire\{CategoryFilter, CategoryProducts};
-use App\Models\{Brand, Category, Image, Product, Subcategory, User};
+use App\Http\Livewire\{AddCartItemColor, AddCartItemSize, CategoryFilter, CategoryProducts};
+use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
@@ -176,7 +176,7 @@ class Week2Test extends TestCase
     }
 
     /** @test */
-    function the_products_are_filtered_by_brand_or_subcategory()
+    function the_products_are_filtered_by_subcategory()
     {
         $category = Category::factory()->create();
 
@@ -249,5 +249,309 @@ class Week2Test extends TestCase
             ->assertSee($p2->name)
             ->assertDontSee($p3->name)
             ->assertDontSee($p4->name);
+    }
+
+    /** @test */
+    function the_products_are_filtered_by_brand()
+    {
+        $category = Category::factory()->create();
+
+        $subc1 = Subcategory::factory()->create([
+            'name' => 'Subcategoria 1',
+        ]);
+
+        $subc2 = Subcategory::factory()->create([
+            'name' => 'Subcategoria 2',
+        ]);
+
+        $b1 = Brand::factory()->create([
+            'name' => 'Marca 1',
+        ]);
+
+        $b2 = Brand::factory()->create([
+            'name' => 'Marca 2',
+        ]);
+
+        $b1->categories()->attach($category->id);
+        $b2->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p2 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p2->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p3 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc2->id,
+            'brand_id' => $b2->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p3->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p4 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc2->id,
+            'brand_id' => $b2->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p4->id,
+            'imageable_type' => Product::class
+        ]);
+
+        Livewire::test(CategoryFilter::class, ['category' => $category])
+            ->set('marca', $b1->name)
+            ->assertSee($p1->name)
+            ->assertSee($p2->name)
+            ->assertDontSee($p3->name)
+            ->assertDontSee($p4->name);
+    }
+
+    /** @test */
+    function the_products_are_filtered_by_brand_and_subcategories()
+    {
+        $category = Category::factory()->create();
+
+        $subc1 = Subcategory::factory()->create([
+            'name' => 'Subcategoria 1',
+        ]);
+
+        $subc2 = Subcategory::factory()->create([
+            'name' => 'Subcategoria 2',
+        ]);
+
+        $b1 = Brand::factory()->create([
+            'name' => 'Marca 1',
+        ]);
+
+        $b2 = Brand::factory()->create([
+            'name' => 'Marca 2',
+        ]);
+
+        $b1->categories()->attach($category->id);
+        $b2->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p2 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p2->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p3 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc2->id,
+            'brand_id' => $b2->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p3->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p4 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc2->id,
+            'brand_id' => $b2->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p4->id,
+            'imageable_type' => Product::class
+        ]);
+
+        Livewire::test(CategoryFilter::class, ['category' => $category])
+            ->set('subcategoria', $subc1->slug)
+            ->set('marca', $b1->name)
+            ->assertSee($p1->name)
+            ->assertSee($p2->name)
+            ->assertDontSee($p3->name)
+            ->assertDontSee($p4->name);
+    }
+
+    /** @test */
+    function the_detail_view_of_a_product_can_be_accessed()
+    {
+        $category = Category::factory()->create();
+        $subc1 = Subcategory::factory()->create();
+        $b1 = Brand::factory()->create();
+        $b1->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $this->get('/products/' . $p1->slug)
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    function can_see_the_images_description_name_price_stock_quantityButton_and_addCartButton()
+    {
+        $category = Category::factory()->create();
+        $subc1 = Subcategory::factory()->create();
+        $b1 = Brand::factory()->create();
+        $b1->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        $image = Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $this->get('/products/' . $p1->slug)
+            ->assertSee($image->url)
+            ->assertSee($p1->description)
+            ->assertSee($p1->name)
+            ->assertSee($p1->price)
+            ->assertSee($p1->quantity)
+            ->assertSee('+')
+            ->assertSee('-')
+            ->assertSee('Agregar al carrito de compras');
+    }
+
+    /** @test */
+    function can_see_the_dropdowns_of_size_and_color_in_the_detail_view_of_a_product()
+    {
+        $category = Category::factory()->create();
+        $subc1 = Subcategory::factory()->create();
+        $b1 = Brand::factory()->create();
+        $b1->categories()->attach($category->id);
+
+        $colors = ['white', 'blue', 'red', 'black'];
+
+        foreach ($colors as $color) {
+            Color::create([
+                'name' => $color
+            ]);
+        }
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $sizes = ['Talla S', 'Talla M', 'Talla L'];
+
+        foreach ($sizes as $size) {
+            $p1->sizes()->create([
+                'name' => $size,
+            ]);
+        }
+
+        $sizes = Size::all();
+
+        foreach ($sizes as $size) {
+            $size->colors()->attach([
+                1 => ['quantity' => 10],
+                2 => ['quantity' => 10],
+                3 => ['quantity' => 10],
+                4 => ['quantity' => 10],
+            ]);
+        }
+
+        Livewire::test(AddCartItemSize::class, ['product' => $p1])
+            ->set('size_id', $sizes[0]->id)
+            ->assertSee('Talla S')
+            ->assertSee('Talla M')
+            ->assertSee('Talla L')
+            ->assertSee('Blanco')
+            ->assertSee('Azul')
+            ->assertSee('Rojo')
+            ->assertSee('Negro');
+    }
+
+    /** @test */
+    function can_see_the_dropdowns_of_a_color_in_the_detail_view_of_a_product()
+    {
+        $category = Category::factory()->create();
+        $subc1 = Subcategory::factory()->create();
+        $b1 = Brand::factory()->create();
+        $b1->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $colors = ['white', 'blue', 'red', 'black'];
+
+        foreach ($colors as $color) {
+            Color::create([
+                'name' => $color
+            ]);
+        }
+
+        $p1->colors()->attach([
+            1 => ['quantity' => 10],
+            2 => ['quantity' => 10],
+            3 => ['quantity' => 10],
+            4 => ['quantity' => 10],
+        ]);
+
+        Livewire::test(AddCartItemColor::class, ['product' => $p1])
+            ->assertSee('Blanco')
+            ->assertSee('Azul')
+            ->assertSee('Rojo')
+            ->assertSee('Negro');
     }
 }
