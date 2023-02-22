@@ -2,8 +2,7 @@
 
 namespace Tests\Feature\Weeks;
 
-use App\Http\Livewire\CategoryFilter;
-use App\Http\Livewire\CategoryProducts;
+use App\Http\Livewire\{CategoryFilter, CategoryProducts};
 use App\Models\{Brand, Category, Image, Product, Subcategory, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -174,5 +173,81 @@ class Week2Test extends TestCase
             ->assertSee('Marca 2')
             ->assertSee($p1->name)
             ->assertSee($p2->name);
+    }
+
+    /** @test */
+    function the_products_are_filtered_by_brand_or_subcategory()
+    {
+        $category = Category::factory()->create();
+
+        $subc1 = Subcategory::factory()->create([
+            'name' => 'Subcategoria 1',
+        ]);
+
+        $subc2 = Subcategory::factory()->create([
+            'name' => 'Subcategoria 2',
+        ]);
+
+        $b1 = Brand::factory()->create([
+            'name' => 'Marca 1',
+        ]);
+
+        $b2 = Brand::factory()->create([
+            'name' => 'Marca 2',
+        ]);
+
+        $b1->categories()->attach($category->id);
+        $b2->categories()->attach($category->id);
+
+        $p1 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p1->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p2 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc1->id,
+            'brand_id' => $b1->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p2->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p3 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc2->id,
+            'brand_id' => $b2->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p3->id,
+            'imageable_type' => Product::class
+        ]);
+
+        $p4 = Product::factory()->create([
+            'name' => Str::random(10),
+            'subcategory_id' => $subc2->id,
+            'brand_id' => $b2->id,
+        ]);
+
+        Image::factory()->create([
+            'imageable_id' => $p4->id,
+            'imageable_type' => Product::class
+        ]);
+
+        Livewire::test(CategoryFilter::class, ['category' => $category])
+            ->set('subcategoria', $subc1->slug)
+            ->assertSee($p1->name)
+            ->assertSee($p2->name)
+            ->assertDontSee($p3->name)
+            ->assertDontSee($p4->name);
     }
 }
