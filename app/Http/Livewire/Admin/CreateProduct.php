@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Subcategory;
+use App\Models\{Brand, Category, Product, Subcategory};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -67,12 +64,6 @@ class CreateProduct extends Component
         $this->reset(['subcategory_id', 'brand_id']);
     }
 
-    public function render()
-    {
-        return view('livewire.admin.create-product')
-            ->layout('layouts.admin');
-    }
-
     public function updatedName($value){
         $this->slug = Str::slug($value);
     }
@@ -80,5 +71,11 @@ class CreateProduct extends Component
     public function getSubcategoryProperty()
     {
         return Subcategory::find($this->subcategory_id);
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.create-product')
+            ->layout('layouts.admin');
     }
 }

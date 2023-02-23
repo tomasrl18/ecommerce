@@ -5,7 +5,7 @@
                 Lista de productos
             </h2>
 
-            <x-button-link class="ml-auto" href="{{route('admin.products.create')}}">
+            <x-button-link class="ml-auto" href="{{ route('admin.products.create') }}">
                 Agregar producto
             </x-button-link>
         </div>
@@ -67,8 +67,13 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $product->subcategory->category->name }}</div>
-                            <div class="text-sm text-gray-500">{{ $product->subcategory->name }}</div>
+                            <div class="text-sm text-gray-900">
+                                {{ $product->subcategory->category->name }}
+                            </div>
+
+                            <div class="text-sm text-gray-500">
+                                {{ $product->subcategory->name }}
+                            </div>
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -83,11 +88,13 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            
+                            {{ $product->totalSales() }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="{{ route('admin.products.edit', $product) }}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                            <a href="{{ route('admin.products.edit', $product) }}" class="text-indigo-600 hover:text-indigo-900">
+                                Editar
+                            </a>
                         </td>
                     </tr>
                 @endforeach

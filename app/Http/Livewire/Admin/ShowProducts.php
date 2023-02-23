@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,12 +19,8 @@ class ShowProducts extends Component
 
     public function render()
     {
-        //$products = Product::where('name', 'LIKE', "%{$this->search}%")->paginate(10);
-
         $products = Product::query()
-            ->applyFilters([
-                'search' => $this->search,
-            ])
+            ->applyFilters(['search' => $this->search])
             ->paginate(10);
 
         return view('livewire.admin.show-products', compact('products'))
