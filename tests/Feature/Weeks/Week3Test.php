@@ -2,13 +2,8 @@
 
 namespace Tests\Feature\Weeks;
 
-use App\Http\Livewire\AddCartItem;
-use App\Http\Livewire\AddCartItemColor;
-use App\Http\Livewire\AddCartItemSize;
-use App\Http\Livewire\DropdownCart;
-use App\Http\Livewire\ShoppingCart;
-use App\Http\Livewire\UpdateCartItem;
-use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory};
+use App\Http\Livewire\{AddCartItem, AddCartItemColor, AddCartItemSize, DropdownCart, ShoppingCart, UpdateCartItem};
+use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory, User};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -195,6 +190,30 @@ class Week3Test extends TestCase
             ->call('destroy')
             ->assertDontSee($p2->name)
             ->assertDontSee($p3->name);
+    }
+
+    /** @test */
+    function only_authenticated_users_can_see_the_create_order_view()
+    {
+        $p1 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1);
+
+        $user1 = User::factory()->create();
+
+        $this->get(route('orders.create'))
+            ->assertStatus(302);
+
+        $this->post('/login', [
+            'email' => $user1->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+
+        $this->get(route('orders.create'))
+            ->assertStatus(200);
     }
 
     function createProduct($color = false, $size = false, $quantity = 5)

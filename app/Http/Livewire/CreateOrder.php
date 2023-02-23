@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\City;
-use App\Models\Department;
-use App\Models\District;
-use App\Models\Order;
+use App\Models\{City, Department, District, Order};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
