@@ -124,6 +124,15 @@ class Week3Test extends TestCase
     // TODO Tareas 5 y 6 de la semana 3
 
     /** @test */
+    function we_can_see_the_stock_of_the_product()
+    {
+        $p1 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->assertViewHas('quantity', $p1->quantity);
+    }
+
+    /** @test */
     function we_can_see_all_the_items_that_have_the_cart_view()
     {
         $p1 = $this->createProduct();
@@ -233,7 +242,7 @@ class Week3Test extends TestCase
 
         Livewire::test(AddCartItem::class, ['product' => $p1])
             ->call('addItem', $p1);
-        
+
         Auth::logout();
 
         $this->assertDatabaseCount('shoppingcart', 1);
