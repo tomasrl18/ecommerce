@@ -6,6 +6,7 @@ use App\Http\Livewire\AddCartItem;
 use App\Http\Livewire\AddCartItemColor;
 use App\Http\Livewire\AddCartItemSize;
 use App\Http\Livewire\DropdownCart;
+use App\Http\Livewire\ShoppingCart;
 use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -113,14 +114,36 @@ class Week3Test extends TestCase
 //        $quantity = 2;
 //        $p1 = $this->createProduct(false, false, $quantity);
 //
-//        Livewire::test(AddCartItem::class, ['product' => $p1])
-//            ->set('qty', 2)
-//            ->call('addItem', $p1);
+//        for ($i = 0; $i < 3; $i++) {
+//            Livewire::test(AddCartItem::class, ['product' => $p1])
+//                ->call('addItem', $p1);
+//        }
 //
 //        Livewire::test(DropdownCart::class)
 //            ->assertSee($p1->price)
 //            ->assertSee($p1->name);
 //    }
+
+    // TODO Tareas 5 y 6 de la semana 3
+
+    /** @test */
+    function we_can_see_all_the_items_that_have_the_cart_view()
+    {
+        $p1 = $this->createProduct();
+        $p2 = $this->createProduct();
+        $p3 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1);
+
+        Livewire::test(AddCartItem::class, ['product' => $p2])
+            ->call('addItem', $p2);
+
+        Livewire::test(ShoppingCart::class)
+            ->assertSee($p1->name)
+            ->assertSee($p2->name)
+            ->assertDontSee($p3->name);
+    }
 
     function createProduct($color = false, $size = false, $quantity = 5)
     {
