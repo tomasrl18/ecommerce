@@ -2,7 +2,14 @@
 
 namespace Tests\Feature\Weeks;
 
-use App\Http\Livewire\{AddCartItem, AddCartItemColor, AddCartItemSize, DropdownCart, ShoppingCart, UpdateCartItem};
+use App\Http\Livewire\{AddCartItem,
+    AddCartItemColor,
+    AddCartItemSize,
+    DropdownCart,
+    Search,
+    ShoppingCart,
+    UpdateCartItem};
+use App\Http\Controllers\SearchController;
 use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory, User};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -121,8 +128,6 @@ class Week3Test extends TestCase
 //            ->assertSee($p1->name);
 //    }
 
-    // TODO Tareas 5 y 6 de la semana 3
-
     /** @test */
     function we_can_see_the_stock_of_the_product()
     {
@@ -130,6 +135,22 @@ class Week3Test extends TestCase
 
         Livewire::test(AddCartItem::class, ['product' => $p1])
             ->assertViewHas('quantity', $p1->quantity);
+    }
+
+    /** @test */
+    function the_search_can_filter_or_show_all_if_the_search_field_is_empty()
+    {
+        $p1 = $this->createProduct();
+
+        $p2 = $this->createProduct();
+
+        $p3 = $this->createProduct();
+
+        Livewire::test(Search::class, ['product' => $p1])
+            ->set('search', $p1->name)
+            ->assertSee($p1->name)
+            ->assertDontSee($p2->name)
+            ->assertDontSee($p3->name);
     }
 
     /** @test */
