@@ -5,18 +5,20 @@ namespace Tests\Feature\Weeks;
 use App\Http\Livewire\{AddCartItem,
     AddCartItemColor,
     AddCartItemSize,
+    CreateOrder,
     DropdownCart,
     Search,
     ShoppingCart,
     UpdateCartItem};
 use App\Http\Controllers\SearchController;
-use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory, User};
+use App\Models\{Brand, Category, City, Color, Department, District, Image, Product, Size, Subcategory, User};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class Week3Test extends TestCase
 {
@@ -272,6 +274,93 @@ class Week3Test extends TestCase
 
         Livewire::test(ShoppingCart::class)
             ->assertSee($p1->name);
+    }
+
+    /** @test */
+    function we_can_create_an_order_and_then_the_cart_is_destroyed_and_then_redirect_to_the_new_route()
+    {
+        $p1 = $this->createProduct();
+
+        $user1 = User::factory()->create();
+
+        $this->post('/login', [
+            'email' => $user1->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem');
+
+        $this->assertEquals(Cart::count(), 1);
+        $this->assertDatabaseCount('orders', 0);
+
+        Livewire::test(CreateOrder::class)
+            ->set('contact', 'Tomás')
+            ->set('phone', '123456789')
+            ->call('create_order')
+            ->assertRedirect('orders/1/payment');
+
+        $this->assertDatabaseCount('orders', 1);
+        $this->assertEquals(Cart::count(), 0);
+    }
+
+    /** @test */
+    function the_selected_selects_are_loaded_correctly_depending_of_the_options()
+    {
+        $p1 = $this->createProduct();
+
+        $depa1 = Department::factory()->create([
+            'name' => 'Depa 1',
+        ]);
+
+        $depa2 = Department::factory()->create([
+            'name' => 'Depa 2',
+        ]);
+
+        $c1 = City::factory()->create([
+            'name' => 'Ciudad 1',
+            'department_id' => $depa1->id,
+        ]);
+
+        $c2 = City::factory()->create([
+            'name' => 'Ciudad 2',
+            'department_id' => $depa2->id,
+        ]);
+
+        $dis1 = District::factory()->create([
+            'name' => 'Distrito 1',
+            'city_id' => $c1->id,
+        ]);
+
+        $dis2 = District::factory()->create([
+            'name' => 'Distrito 2',
+            'city_id' => $c2->id,
+        ]);
+
+        $user1 = User::factory()->create();
+
+        $this->post('/login', [
+            'email' => $user1->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem');
+
+        Livewire::test(CreateOrder::class)
+            ->set('envio_type', 2)
+            ->assertSee($depa1->name)
+            ->assertSee($depa2->name)
+            ->set('department_id', $depa1->id)
+            ->assertSee($c1->name)
+            ->assertDontSee($c2->name)
+            ->set('city_id', $c1->id)
+            ->assertSee($dis1->name)
+            ->assertDontSee($dis2->name);
     }
 
     function createProduct($color = false, $size = false, $quantity = 5)

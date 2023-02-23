@@ -65,9 +65,29 @@ class Product extends Model
 
     public function totalSales()
     {
-        //$products = Order::where('content', );
+//        $contentOrders = Order::query()
+//            ->where('status', 'NOT LIKE', 5)
+//            ->get();
 
-        echo Order::all();
+        //return $contentOrders;
+
+        $id = $this->id;
+
+        $orders = Order::select('content')->get()->map(function ($order) {
+            return json_decode($order->content, true);
+        });
+
+        $products = $orders->collapse();
+
+        $counter = 0;
+
+        foreach ($products as $product) {
+            if ($product['id'] == $id) {
+                $counter = $counter + $product['qty'];
+            };
+        }
+
+        return $counter;
     }
 
     // Hay un error de que si editas el nombre de un producto, peta,
