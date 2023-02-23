@@ -113,10 +113,11 @@ class Week3Test extends TestCase
         $quantity = 2;
         $p1 = $this->createProduct(false, false, $quantity);
 
-        for ($i = 0; $i < 4; $i++) {
-            Livewire::test(AddCartItem::class, ['product' => $p1])
-                ->call('addItem', $p1);
-        }
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->set('qty', 2)
+            ->call('addItem', $p1);
+
 
         Livewire::test(DropdownCart::class)
             ->assertSee($p1->price)
