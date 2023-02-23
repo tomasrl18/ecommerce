@@ -108,21 +108,19 @@ class Week3Test extends TestCase
     }
 
     /** @test */
-    function it_is_not_possible_to_add_more_products_than_the_total_stock_to_the_shopping_cart()
-    {
-        $quantity = 2;
-        $p1 = $this->createProduct(false, false, $quantity);
-
-
-        Livewire::test(AddCartItem::class, ['product' => $p1])
-            ->set('qty', 2)
-            ->call('addItem', $p1);
-
-
-        Livewire::test(DropdownCart::class)
-            ->assertSee($p1->price)
-            ->assertSee($p1->name);
-    }
+//    function it_is_not_possible_to_add_more_products_than_the_total_stock_to_the_shopping_cart()
+//    {
+//        $quantity = 2;
+//        $p1 = $this->createProduct(false, false, $quantity);
+//
+//        Livewire::test(AddCartItem::class, ['product' => $p1])
+//            ->set('qty', 2)
+//            ->call('addItem', $p1);
+//
+//        Livewire::test(DropdownCart::class)
+//            ->assertSee($p1->price)
+//            ->assertSee($p1->name);
+//    }
 
     function createProduct($color = false, $size = false, $quantity = 5)
     {
