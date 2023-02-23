@@ -171,6 +171,32 @@ class Week3Test extends TestCase
         $this->assertEquals($total, Cart::subtotal());
     }
 
+    /** @test */
+    function we_can_clean_the_cart_and_delete_a_product()
+    {
+        $p1 = $this->createProduct();
+        $p2 = $this->createProduct();
+        $p3 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1);
+
+        Livewire::test(AddCartItem::class, ['product' => $p2])
+            ->call('addItem', $p2);
+
+        Livewire::test(AddCartItem::class, ['product' => $p3])
+            ->call('addItem', $p3);
+
+        Livewire::test(ShoppingCart::class)
+            ->call('delete', Cart::content()->first()->rowId)
+            ->assertDontSee($p1->name);
+
+        Livewire::test(ShoppingCart::class)
+            ->call('destroy')
+            ->assertDontSee($p2->name)
+            ->assertDontSee($p3->name);
+    }
+
     function createProduct($color = false, $size = false, $quantity = 5)
     {
         $category = Category::factory()->create();
