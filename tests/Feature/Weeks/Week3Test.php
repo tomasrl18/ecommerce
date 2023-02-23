@@ -7,6 +7,7 @@ use App\Http\Livewire\AddCartItemColor;
 use App\Http\Livewire\AddCartItemSize;
 use App\Http\Livewire\DropdownCart;
 use App\Http\Livewire\ShoppingCart;
+use App\Http\Livewire\UpdateCartItem;
 use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -143,6 +144,31 @@ class Week3Test extends TestCase
             ->assertSee($p1->name)
             ->assertSee($p2->name)
             ->assertDontSee($p3->name);
+    }
+
+    /** @test */
+    function in_the_cart_view_we_can_change_the_quantity_of_any_of_the_products_and_the_total_column_also_changes()
+    {
+        $p1 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1);
+
+        $total = Cart::subtotal();
+
+        Livewire::test(UpdateCartItem::class, ['rowId' => Cart::content()->first()->rowId])
+            ->assertViewHas('qty', 1)
+            ->call('increment')
+            ->assertViewHas('qty', 2);
+
+        $this->assertEquals($total * 2, Cart::subtotal());
+
+        Livewire::test(UpdateCartItem::class, ['rowId' => Cart::content()->first()->rowId])
+            ->assertViewHas('qty', 2)
+            ->call('decrement')
+            ->assertViewHas('qty', 1);
+
+        $this->assertEquals($total, Cart::subtotal());
     }
 
     function createProduct($color = false, $size = false, $quantity = 5)
