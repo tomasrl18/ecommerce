@@ -6,6 +6,7 @@ use App\Http\Livewire\{AddCartItem, AddCartItemColor, AddCartItemSize, DropdownC
 use App\Models\{Brand, Category, Color, Image, Product, Size, Subcategory, User};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -214,6 +215,33 @@ class Week3Test extends TestCase
 
         $this->get(route('orders.create'))
             ->assertStatus(200);
+    }
+
+    /** @test */
+    function the_cart_is_saved_in_BD_when_logout_and_is_rescue_when_login()
+    {
+        $user1 = User::factory()->create();
+
+        $this->post('/login', [
+            'email' => $user1->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+
+        $p1 = $this->createProduct();
+
+        Livewire::test(AddCartItem::class, ['product' => $p1])
+            ->call('addItem', $p1);
+        
+        Auth::logout();
+
+        $this->assertDatabaseCount('shoppingcart', 1);
+
+        $this->actingAs($user1);
+
+        Livewire::test(ShoppingCart::class)
+            ->assertSee($p1->name);
     }
 
     function createProduct($color = false, $size = false, $quantity = 5)

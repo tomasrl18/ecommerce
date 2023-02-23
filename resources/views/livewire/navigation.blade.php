@@ -74,9 +74,7 @@
                         </form>
                     </x-slot>
                 </x-jet-dropdown>
-
             @else
-
                 <x-jet-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <i class="fas fa-user-circle text-white text-3xl cursor-pointer"></i>
