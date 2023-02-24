@@ -9,6 +9,44 @@
                 Agregar producto
             </x-button-link>
         </div>
+
+{{--        <div class="relative px-10 cursor-pointer" style="padding-top: 25px">--}}
+{{--            <h1>--}}
+{{--                Columnas--}}
+{{--            </h1>--}}
+
+{{--            <div class="absolute bg-white w-2/3 p-3 rounded border shadow-md z-99"--}}
+{{--                 x-show="showColumn" x-on:click.away="showColumn = false">--}}
+{{--                @foreach ($columns as $column)--}}
+{{--                    <x-jet-label>--}}
+{{--                        <x-jet-checkbox--}}
+{{--                            wire:model="activeColumns"--}}
+{{--                            name="columns[]"--}}
+{{--                            value="{{$column}}" />--}}
+{{--                        {{$column}}--}}
+{{--                    </x-jet-label>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+
+{{--            <x-jet-input-error for="" />--}}
+{{--        </div>--}}
+
+        <div class="relative px-10 cursor-pointer" style="padding-bottom: 50px">
+            Columnas mostradas
+
+            <div class="absolute bg-white w-2/3 p-3 rounded border shadow-md z-99">
+                <div>
+                    @foreach ($columns as $column)
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" wire:model="activeColumns"
+                                   value="{{ $column }}">
+
+                            <span class="ml-1">{{ $column }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </x-slot>
 
     <x-table-responsive>
@@ -36,9 +74,17 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
-                        Nombre
-                    </th>
+{{--                    @foreach($columns as $column)--}}
+{{--                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">--}}
+{{--                            {{ $column }}--}}
+{{--                        </th>--}}
+{{--                    @endforeach--}}
+
+                    @if($this->activateColumn('Nombre'))
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
+                            Nombre
+                        </th>
+                    @endif
 
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
                         Categoría

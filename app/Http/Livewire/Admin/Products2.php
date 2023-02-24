@@ -13,6 +13,20 @@ class Products2 extends Component
     public $search;
     public $pagination;
 
+    public $columns = ['Nombre', 'Categoría', 'Estado', 'Precio', 'Marca', 'Stock disponible', 'Nº de ventas', 'Creado el'];
+    public $activeColumns = [];
+    public $showColumn = true;
+
+    public function mount()
+    {
+        $this->activeColumns = ['Nombre', 'Categoría', 'Estado', 'Precio', 'Marca', 'Stock disponible', 'Nº de ventas', 'Creado el'];
+    }
+
+    public function activateColumn($column)
+    {
+        return in_array($column, $this->activeColumns);
+    }
+
     public function render()
     {
         $products = Product::query()
