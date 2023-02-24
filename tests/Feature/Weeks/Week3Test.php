@@ -34,8 +34,9 @@ class Week3Test extends TestCase
             ->call('addItem', $p1)
             ->assertStatus(200);
 
-        $this->assertEquals($p1->id, Cart::content()->first()->id);
-        $this->assertNotEquals($p2->id, Cart::content()->first()->id);
+        Livewire::test(ShoppingCart::class)
+            ->assertSee($p1->name)
+            ->assertDontSee($p2->name);
     }
 
     /** @test */
@@ -48,8 +49,9 @@ class Week3Test extends TestCase
             ->call('addItem', $p1)
             ->assertStatus(200);
 
-        $this->assertEquals($p1->id, Cart::content()->first()->id);
-        $this->assertNotEquals($p2->id, Cart::content()->first()->id);
+        Livewire::test(ShoppingCart::class)
+            ->assertSee($p1->name)
+            ->assertDontSee($p2->name);
     }
 
     /** @test */
@@ -69,8 +71,9 @@ class Week3Test extends TestCase
             ->call('addItem', $p1)
             ->assertStatus(200);
 
-        $this->assertEquals($p1->id, Cart::content()->first()->id);
-        $this->assertNotEquals($p2->id, Cart::content()->first()->id);
+        Livewire::test(ShoppingCart::class)
+            ->assertSee($p1->name)
+            ->assertDontSee($p2->name);
     }
 
     /** @test */
@@ -250,7 +253,7 @@ class Week3Test extends TestCase
     }
 
     /** @test */
-    function the_cart_is_saved_in_BD_when_logout_and_is_rescue_when_login()
+    function the_cart_is_saved_in_DB_when_logout_and_is_rescue_when_login()
     {
         $user1 = User::factory()->create();
 
