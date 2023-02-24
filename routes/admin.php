@@ -5,6 +5,7 @@ use App\Http\Livewire\Admin\{BrandComponent,
     CreateProduct,
     DepartmentComponent,
     EditProduct,
+    Products2,
     ShowCategory,
     ShowCity,
     ShowDepartment,
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowProducts::class)
     ->name('admin.index');
+
+Route::get('products2', Products2::class)
+    ->name('admin.products2');
 
 Route::get('products/{product}/edit', EditProduct::class)
     ->name('admin.products.edit');
