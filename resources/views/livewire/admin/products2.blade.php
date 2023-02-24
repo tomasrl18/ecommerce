@@ -12,8 +12,8 @@
     </x-slot>
 
     <x-table-responsive>
-        <div>
-            <select wire:model="pagination" class="form-control w-full">
+        <div style="width: 25%;">
+            <select wire:model="pagination" class="form-control w-full" style="text-align: center">
                 <option value="" selected disabled>Seleccionar un valor para paginar</option>
 
                 <option value="5">5</option>
@@ -36,20 +36,36 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
                         Nombre
                     </th>
 
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
                         Categoría
                     </th>
 
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
                         Estado
                     </th>
 
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
                         Precio
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
+                        Marca
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
+                        Stock disponible
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
+                        Nº de ventas
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="text-align: center">
+                        Creado el
                     </th>
 
                     <th scope="col" class="relative px-6 py-3">
@@ -76,8 +92,8 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $product->subcategory->category->name }}</div>
-                            <div class="text-sm text-gray-500">{{ $product->subcategory->name }}</div>
+                            <div class="text-sm text-gray-900" style="text-align: center">{{ $product->subcategory->category->name }}</div>
+                            <div class="text-sm text-gray-500" style="text-align: center">{{ $product->subcategory->name }}</div>
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -89,6 +105,22 @@
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ $product->price }} &euro;
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" style="text-align: center">
+                            {{ $product->brand->name }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" style="text-align: center">
+                            {{ $product->stock }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" style="text-align: center">
+                            {{ $product->sales }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" style="text-align: center">
+                            {{ $product->created_at }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

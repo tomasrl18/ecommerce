@@ -63,6 +63,27 @@ class Product extends Model
         }
     }
 
+    public function getSalesAttribute()
+    {
+        $id = $this->id;
+
+        $orders = Order::select('content')->get()->map(function ($order) {
+            return json_decode($order->content, true);
+        });
+
+        $products = $orders->collapse();
+
+        $counter = 0;
+
+        foreach ($products as $product) {
+            if ($product['id'] == $id) {
+                $counter = $counter + $product['qty'];
+            };
+        }
+
+        return $counter;
+    }
+
     // Hay un error de que si editas el nombre de un producto, peta,
     // y se arregla comentando este método, pero la mejor manera es
     // vamonos al EditProduct método updatedProductName
