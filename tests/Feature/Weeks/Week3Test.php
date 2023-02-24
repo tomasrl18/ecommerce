@@ -2,23 +2,13 @@
 
 namespace Tests\Feature\Weeks;
 
-use App\Http\Livewire\{AddCartItem,
-    AddCartItemColor,
-    AddCartItemSize,
-    CreateOrder,
-    DropdownCart,
-    Search,
-    ShoppingCart,
-    UpdateCartItem};
-use App\Http\Controllers\SearchController;
+use App\Http\Livewire\{AddCartItem, AddCartItemColor, AddCartItemSize, CreateOrder, DropdownCart, Search, ShoppingCart, UpdateCartItem};
 use App\Models\{Brand, Category, City, Color, Department, District, Image, Product, Size, Subcategory, User};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
-use function PHPUnit\Framework\assertEquals;
 
 class Week3Test extends TestCase
 {
