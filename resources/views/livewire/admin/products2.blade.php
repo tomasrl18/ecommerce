@@ -12,6 +12,19 @@
     </x-slot>
 
     <x-table-responsive>
+        <div>
+            <select wire:model="pagination" class="form-control w-full">
+                <option value="" selected disabled>Seleccionar un valor para paginar</option>
+
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+
         <div class="px-6 py-4">
             <x-jet-input class="w-full"
                          wire:model="search"
@@ -28,7 +41,7 @@
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        CategorÃ­a
+                        Categoría
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
