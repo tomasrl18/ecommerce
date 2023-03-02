@@ -10,6 +10,7 @@ use Livewire\Component;
 class AddCartItemSize extends Component
 {
     public $product;
+    public $sizes;
     public $size_id = '';
     public $colors = [];
     public $qty = 1;

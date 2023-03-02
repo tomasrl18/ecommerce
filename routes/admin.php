@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\{CategoryController, ProductController, OrderController};
 use App\Http\Livewire\Admin\{BrandComponent,
     CreateProduct,
+    CreateUser,
     DepartmentComponent,
     EditProduct,
     Products2,
@@ -54,3 +55,6 @@ Route::get('cities/{city}', ShowCity::class)
 
 Route::get('users', UserComponent::class)
     ->name('admin.users.index');
+
+Route::get('users/create', CreateUser::class)
+    ->name('admin.users.create');

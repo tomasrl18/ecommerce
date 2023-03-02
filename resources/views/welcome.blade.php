@@ -1,19 +1,22 @@
 <x-app-layout>
     <div class="container-menu py-8">
         @foreach($categories as $category)
-            <section class="mb-6">
-                <div class="flex items-center mb-2">
-                    <h1 class="text-lg uppercase font-semibold text-gray-700">
-                        {{ $category->name }}
-                    </h1>
+            <!-- Este if es para que no se muestren las categorías que no tienen productos -->
+            @if(count($category->products))
+                <section class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <h1 class="text-lg uppercase font-semibold text-gray-700">
+                            {{ $category->name }}
+                        </h1>
 
-                    <a href="{{ route('categories.show', $category) }}" class="text-orange-500 hover:text-orange-400 hover:underline ml-2 font-semibold">
-                        Ver más
-                    </a>
-                </div>
+                        <a href="{{ route('categories.show', $category) }}" class="text-orange-500 hover:text-orange-400 hover:underline ml-2 font-semibold">
+                            Ver más
+                        </a>
+                    </div>
 
-                @livewire('category-products', ['category' => $category])
-            </section>
+                    @livewire('category-products', ['category' => $category])
+                </section>
+            @endif
         @endforeach
     </div>
 

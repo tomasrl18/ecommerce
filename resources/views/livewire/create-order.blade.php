@@ -8,6 +8,7 @@
                              wire:model.defer="contact"
                              placeholder="Introduzca el nombre de la persona que recibirá el pedido"
                              class="w-full"/>
+
                 <x-jet-input-error for="contact"/>
             </div>
 
@@ -18,22 +19,33 @@
                              wire:model.defer="phone"
                              placeholder="Introduzca el teléfono de contacto"
                              class="w-full"/>
+
                 <x-jet-input-error for="phone"/>
             </div>
         </div>
 
+        <!--
+            Livewire has an incredibly powerful feature called "entangle" that allows you to "entangle"
+            a Livewire and Alpine property together. With entanglement, when one value changes,
+            the other will also be changed.
+         -->
+
         <div x-data="{ envio_type: @entangle('envio_type') }">
             <p class="mt-6 mb-3 text-lg text-gray-700 font-semibold">Envíos</p>
 
+            <!-- x-model allows you to bind the value of an input element to Alpine data. -->
             <label class="bg-white rounded-lg shadow px-6 py-4 flex items-center mb-4">
                 <input x-model="envio_type" type="radio" name="envio_type" value="1" class="text-gray-600">
+
                 <span class="ml-2 text-gray-700">Recojo en tienda (Calle Falsa 123)</span>
+
                 <span class="font-semibold text-gray-700 ml-auto">Gratis</span>
             </label>
 
             <div class="bg-white rounded-lg shadow">
                 <label class="px-6 py-4 flex items-center">
                     <input x-model="envio_type" type="radio" name="envio_type" value="2" class="text-gray-600">
+
                     <span class="ml-2 text-gray-700">Envío a domicilio</span>
                 </label>
 
@@ -43,6 +55,7 @@
 
                         <select class="form-control w-full" wire:model="department_id">
                             <option value="" disabled selected>Seleccione un departamento</option>
+
                             @foreach($departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                             @endforeach
@@ -81,20 +94,27 @@
 
                 <div>
                     <x-jet-label value="Dirección" />
+
                     <x-jet-input class="w-full" wire:model="address" type="text" />
+
                     <x-jet-input-error for="address" />
                 </div>
 
                 <div class="col-span-2">
                     <x-jet-label value="Referencia" />
+
                     <x-jet-input class="w-full" wire:model="reference" type="text" />
+
                     <x-jet-input-error for="reference" />
                 </div>
             </div>
 
             <div>
+                <!--
+                    wire:loading.attr. HTML attributes can be added or removed from elements during loading states
+                -->
                 <x-jet-button
-                    wire:laoding.att="disabled"
+                    wire:laoding.attr="disabled"
                     wire:target="create_order"
                     class="mt-6 mb-4"
                     wire:click="create_order">
@@ -139,9 +159,7 @@
                                 <p>{{ $item->price }} &euro;</p>
                             </article>
                         </li>
-
                     @empty
-
                         <li class="py-6 px-4">
                             <p class="text-center text-gray-700">
                                 No tiene agregado ningún item en el carrito

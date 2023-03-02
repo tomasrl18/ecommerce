@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Livewire\CreateOrder;
-use App\Http\Livewire\PaymentOrder;
-use App\Http\Livewire\ShoppingCart;
+use App\Http\Livewire\{CreateOrder, PaymentOrder, ShoppingCart};
 use App\Models\Order;
 use App\Http\Controllers\{CategoryController, OrderController, ProductsController, SearchController, WelcomeController};
 use Illuminate\Support\Facades\Route;

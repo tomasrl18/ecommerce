@@ -37,8 +37,7 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         <img class="h-10 w-10 rounded-full object-cover object-center"
-                                             src="{{ $item->options->image }}"
-                                             alt="">
+                                             src="{{ $item->options->image }}" alt="">
                                     </div>
 
                                     <div class="ml-4">
@@ -72,13 +71,15 @@
                                        wire:click="delete('{{ $item->rowId }}')"
                                        wire:loading.class="text-red-600 opacity-25"
                                        wire:target="delete('{{ $item->rowId }}')">
-                                        <i class="fas fa-trash"></i>
+
+                                       <i class="fas fa-trash"></i>
                                     </a>
                                 </div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-500">
+                                    <!-- Este options lo recibe de la clase AddCartItem -->
                                     @if ($item->options->size)
                                         @livewire('update-cart-item-size', ['rowId' => $item->rowId], key($item->rowId))
                                     @elseif($item->options->color)
